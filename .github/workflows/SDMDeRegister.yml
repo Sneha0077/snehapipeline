@@ -1,0 +1,19 @@
+#This is basic workflow tolearn GitActions
+
+name: StrongDMGatewayDeRegister
+
+on: [push]
+jobs:
+  translations:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Install Jq
+      run: sudo yum install -y jq
+    - name: curl
+      uses: wei/curl@master
+      with:
+        args: http://169.254.169.254/metadata/instance?api-version=2017-08-01" | jq -r '.compute | .name'
+        
