@@ -11,9 +11,20 @@ jobs:
       with:
         fetch-depth: 1
     - name: Install Jq
-      run: sudo yum install -y jq
+      run: apt-get install -y jq
     - name: curl
       uses: wei/curl@master
       with:
-        args: http://169.254.169.254/metadata/instance?api-version=2017-08-01" | jq -r '.compute | .name'
-        
+       args: http://169.254.169.254/metadata/instance?api-version=2017-08-01" | jq -r '.compute | .name'
+    
+    - name: Install Azure CLI
+      run: |
+        echo -e "[azure-cli]
+        name=Azure CLI
+        baseurl=https://packages.microsoft.com/yumrepos/azure-cli
+        enabled=1
+        gpgcheck=1
+        gpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/azure-cli.repo
+        sudo dnf install -y azure-cli 
+         
+      
