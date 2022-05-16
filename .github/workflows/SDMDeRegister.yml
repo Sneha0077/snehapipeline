@@ -15,12 +15,11 @@ jobs:
     
     - name: Install Azure CLI
       run: |
-        echo -e "[azure-cli]
-        name=Azure CLI
-        baseurl=https://packages.microsoft.com/yumrepos/azure-cli
-        enabled=1
-        gpgcheck=1
-        gpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/azure-cli.repo
-        sudo dnf install -y azure-cli 
+          sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg
+          curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
+          AZ_REPO=$(lsb_release -cs)
+          echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
+          sudo apt-get update
+          sudo apt-get install azure-cli
          
       
