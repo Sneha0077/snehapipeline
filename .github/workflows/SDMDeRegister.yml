@@ -3,17 +3,17 @@
 name: StrongDMGatewayDeRegister
 
 on: [push]
+
+Workflow_dispatch:
+
 jobs:
+
   build:
   translations:
-    runs-on: ubuntu-latest
-    environment: PRD 
- 	  env:
- 	   AZURE_CLIENT_ID: ${{ secrets.SPN_CLIENT_ID }}
- 	   AZURE_CLIENT_SECRET: ${{ secrets.SPN_CLIENT_SECRET }}
-     AZURE_TENANT_ID: ${{ secrets.SPN_TENANT_ID }}
+  runs-on: ubuntu-latest
+  environment: PRD 
 
-    steps:
+  steps:
     - uses: actions/checkout@v1
       with:
         fetch-depth: 1
@@ -33,5 +33,13 @@ jobs:
       run: |
          az login --service-principal -u ${{env.AZURE_CLIENT_ID}} -p ${{env.AZURE_CLIENT_SECRET}} --tenant ${{env.AZURE_TENANT_ID}}
          az account set --subscription ${{env.AZURE_SUBSCRIPTION_ID}}
+
+    - name: curl
+       uses: wei/curl@master
+       with: 
+       args: 
+       HOSTNAME=`curl --write-out '%{http://169.254.169.254/metadata/instance?api-version=2017-08-01" | jq -r '.compute | .name}'`
+
+
 
       
