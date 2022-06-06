@@ -2,15 +2,18 @@
 
 name: StrongDMGatewayDeRegister
 
-on: [push]
+on:
 
-Workflow_dispatch:
+ push:
+
+ workflow_dispatch:
 
 jobs:
 
-  build:
-  translations:
-  runs-on: ubuntu-latest
+ build:
+  
+  runs-on: internal-ubuntu
+  
   environment: PRD 
 
   steps:
