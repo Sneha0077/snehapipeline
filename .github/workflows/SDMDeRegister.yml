@@ -12,7 +12,7 @@ jobs:
 
  build:
   
-  runs-on: internal-ubuntu
+  runs-on: ubuntu-latest
   
   environment: PRD 
 
