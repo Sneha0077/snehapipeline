@@ -31,15 +31,10 @@ jobs:
           
     - name: Azure Login
       run: |
-         az login --service-principal -u ${{env.AZURE_CLIENT_ID}} -p ${{env.AZURE_CLIENT_SECRET}} --tenant ${{env.AZURE_TENANT_ID}}
-         az account set --subscription ${{env.AZURE_SUBSCRIPTION_ID}}
+         echo "Generating Token"
+         az login -u SNEMISHRA@DELOITT.COM -p Myloveisfor@4428
+     
 
-    - name: curl
-       uses: wei/curl@master
-       with: 
-       args: 
-       HOSTNAME=`curl --write-out '%{http://169.254.169.254/metadata/instance?api-version=2017-08-01" | jq -r '.compute | .name}'`
-
-
+    
 
       
